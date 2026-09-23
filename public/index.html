@@ -1,1 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllabex</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom CSS for dynamic counters and workspace rules -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased h-screen flex flex-col font-sans overflow-hidden">
 
+    <!-- Top Navigation Header -->
+    <header class="h-14 border-b border-slate-200 bg-white flex items-center justify-between px-4 z-10 shrink-0">
+        <div class="flex items-center space-x-3">
+            <div class="bg-indigo-600 text-white p-1.5 rounded-lg shadow-sm">
+                <i data-lucide="layers" class="w-5 h-5"></i>
+            </div>
+            <span class="font-semibold text-slate-900 tracking-tight text-lg">Syllabex</span>
+        </div>
+
+        <!-- Mode Switcher Tabs -->
+        <nav class="flex bg-slate-100 p-1 rounded-lg border border-slate-200/80">
+            <button id="tab-syllabus" onclick="switchTab('syllabus')" class="nav-tab active flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all">
+                <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                <span>1. Syllabus</span>
+            </button>
+            <button id="tab-mindmap" onclick="switchTab('mindmap')" class="nav-tab flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition-all">
+                <i data-lucide="git-fork" class="w-3.5 h-3.5"></i>
+                <span>2. Mindmap Workspace</span>
+            </button>
+            <button id="tab-pastpapers" onclick="switchTab('pastpapers')" class="nav-tab flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition-all">
+                <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
+                <span>3. Past Papers</span>
+            </button>
+        </nav>
+
+        <div class="flex items-center space-x-2">
+            <button class="text-slate-500 hover:text-slate-700 p-2 rounded-lg hover:bg-slate-100 transition-colors">
+                <i data-lucide="settings" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace Area -->
+    <div class="flex-1 flex overflow-hidden relative">
+
+        <!-- Sidebar (Syllabi Selector & Tree) -->
+        <aside class="w-72 border-r border-slate-200 bg-white flex flex-col shrink-0">
+            <!-- Syllabus Switcher Dropdown -->
+            <div class="p-3 border-b border-slate-200">
+                <label for="syllabus-select" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Select Syllabus</label>
+                <select id="syllabus-select" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-lg p-2 font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <option value="placeholder-1">Lorem Ipsum Subject A</option>
+                    <option value="placeholder-2">Lorem Ipsum Subject B</option>
+                    <option value="placeholder-3">Lorem Ipsum Subject C</option>
+                </select>
+            </div>
+
+            <!-- Syllabus Hierarchy Tree Navigation -->
+            <div class="flex-1 overflow-y-auto p-3 space-y-1">
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2 py-1">Structure</div>
+                
+                <div class="sidebar-tree space-y-1 text-xs">
+                    <a href="#section-1" class="flex items-center px-2 py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-medium group">
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 mr-1"></i>
+                        <span class="truncate">Lorem Ipsum Section Alpha</span>
+                    </a>
+                    <div class="pl-4 space-y-1">
+                        <a href="#topic-1-1" class="block px-2 py-1 text-slate-600 hover:bg-slate-100 rounded-md truncate">
+                            Lorem Ipsum Topic
+                        </a>
+                        <a href="#topic-1-2" class="block px-2 py-1 text-slate-600 hover:bg-slate-100 rounded-md truncate">
+                            Lorem Ipsum Topic
+                        </a>
+                    </div>
+
+                    <a href="#section-2" class="flex items-center px-2 py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-medium group mt-2">
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 mr-1"></i>
+                        <span class="truncate">Lorem Ipsum Section Beta</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="p-3 border-t border-slate-200">
+                <button class="w-full flex items-center justify-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium py-2 px-3 rounded-lg border border-slate-200 transition-colors">
+                    <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i>
+                    <span>Upload Syllabus PDF</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- View 1: SYLLABUS VIEWER -->
+        <main id="view-syllabus" class="flex-1 overflow-y-auto bg-white p-8 max-w-4xl mx-auto border-x border-slate-100 shadow-sm my-4 rounded-xl">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <div class="text-xs font-mono text-indigo-600 uppercase tracking-wide">Syllabus Reference</div>
+                <h1 class="text-2xl font-bold text-slate-900 mt-1">Lorem Ipsum Curriculum Specification</h1>
+                <p class="text-xs text-slate-500 mt-1">Parsed document view with preserved layout, mathematical notation, and formatting.</p>
+            </div>
+
+            <!-- Dynamic Syllabus Content Container -->
+            <div id="syllabus-content" class="syllabus-root space-y-8 text-sm leading-relaxed">
+                <!-- Section Block -->
+                <section id="section-1" class="syllabus-section">
+                    <h2 class="syllabus-section-title text-lg font-bold text-slate-900 border-b border-slate-100 pb-2 mb-4 flex items-center">
+                        <span class="section-number mr-2"></span>
+                        <span>Lorem Ipsum Section Alpha</span>
+                    </h2>
+
+                    <!-- Topic Block -->
+                    <div id="topic-1-1" class="syllabus-topic ml-4 mb-6">
+                        <h3 class="syllabus-topic-title font-semibold text-slate-800 mb-2 flex items-center">
+                            <span class="topic-number mr-2"></span>
+                            <span>Lorem Ipsum Subtopic Container</span>
+                        </h3>
+
+                        <!-- Learning Objectives List -->
+                        <ul class="syllabus-objectives space-y-2 ml-6 text-slate-600">
+                            <li class="flex items-start">
+                                <span class="objective-bullet mr-2 font-mono text-xs text-slate-400"></span>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="objective-bullet mr-2 font-mono text-xs text-slate-400"></span>
+                                <div>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="topic-1-2" class="syllabus-topic ml-4 mb-6">
+                        <h3 class="syllabus-topic-title font-semibold text-slate-800 mb-2 flex items-center">
+                            <span class="topic-number mr-2"></span>
+                            <span>Lorem Ipsum Subtopic Container</span>
+                        </h3>
+
+                        <ul class="syllabus-objectives space-y-2 ml-6 text-slate-600">
+                            <li class="flex items-start">
+                                <span class="objective-bullet mr-2 font-mono text-xs text-slate-400"></span>
+                                <div>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- View 2: MANUAL MINDMAP WORKSPACE -->
+        <main id="view-mindmap" class="flex-1 bg-slate-100 hidden relative overflow-hidden flex flex-col">
+            <!-- Mindmap Workspace Bar -->
+            <div class="h-10 bg-white border-b border-slate-200 px-4 flex items-center justify-between z-10 shrink-0">
+                <div class="text-xs text-slate-500 font-medium">
+                    <span>Workspace: Manual Canvas</span>
+                </div>
+                <div class="flex items-center space-x-2 text-xs">
+                    <span class="bg-amber-50 text-amber-700 border border-amber-200/60 px-2 py-0.5 rounded font-mono text-[10px]">Manual Entry Only</span>
+                </div>
+            </div>
+
+            <!-- Canvas Placeholder -->
+            <div class="flex-1 overflow-auto p-8 flex items-center justify-center border-2 border-dashed border-slate-200 m-4 rounded-xl bg-slate-50/50">
+                <div class="text-center max-w-sm">
+                    <i data-lucide="git-fork" class="w-10 h-10 text-slate-300 mx-auto mb-3"></i>
+                    <h3 class="text-sm font-semibold text-slate-700">Mindmap Canvas Workspace</h3>
+                    <p class="text-xs text-slate-400 mt-1">Section headings will populate automatically. Enter notes, equations, images, and interactive embeds manually.</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- View 3: PAST PAPERS ENGINE -->
+        <main id="view-pastpapers" class="flex-1 bg-white hidden overflow-y-auto p-8 max-w-4xl mx-auto border-x border-slate-100 shadow-sm my-4 rounded-xl">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <div class="text-xs font-mono text-emerald-600 uppercase tracking-wide">Authentic Assessment Engine</div>
+                <h1 class="text-2xl font-bold text-slate-900 mt-1">Past Paper Exam Assembler</h1>
+                <p class="text-xs text-slate-500 mt-1">Select syllabus nodes to assemble authentic exam questions and mark schemes.</p>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 mb-8">
+                <h2 class="text-sm font-semibold text-slate-800 mb-3">Assemble Practice Paper</h2>
+                <div class="space-y-2 text-xs text-slate-600 mb-4">
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                        <span>Lorem Ipsum Section Alpha</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                        <span>Lorem Ipsum Section Beta</span>
+                    </label>
+                </div>
+                <button class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium py-2 px-4 rounded-lg shadow-sm transition-colors flex items-center space-x-2">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    <span>Generate Practice Examination</span>
+                </button>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
