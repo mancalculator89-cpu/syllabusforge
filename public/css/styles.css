@@ -1,1 +1,37 @@
+/* Active Navigation Tab Style */
+.nav-tab.active {
+    background-color: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
 
+/* Dynamic CSS Counters for Hierarchical Numbering */
+.syllabus-root {
+    counter-reset: section-counter;
+}
+
+.syllabus-section {
+    counter-increment: section-counter;
+    counter-reset: topic-counter;
+}
+
+.section-number::before {
+    content: counter(section-counter);
+}
+
+.syllabus-topic {
+    counter-increment: topic-counter;
+    counter-reset: objective-counter;
+}
+
+.topic-number::before {
+    content: counter(section-counter) "." counter(topic-counter);
+}
+
+.objective-bullet {
+    counter-increment: objective-counter;
+}
+
+.objective-bullet::before {
+    content: counter(section-counter) "." counter(topic-counter) "." counter(objective-counter);
+}
